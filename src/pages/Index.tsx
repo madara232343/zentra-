@@ -6,8 +6,9 @@ import { AboutSection } from "@/components/zentra/AboutSection";
 import { PricingSection } from "@/components/zentra/PricingSection";
 import { ContactSection } from "@/components/zentra/ContactSection";
 import { Footer } from "@/components/zentra/Footer";
-import { HelpButton } from "@/components/zentra/HelpButton";
-import { ScrollProgress } from "@/components/zentra/ScrollProgress";
+import { SectorWheel } from "@/components/zentra/Dashboard/SectorWheel";
+import { DynamicDashboard } from "@/components/zentra/Dashboard/DynamicDashboard";
+import { AIChatWidget } from "@/components/zentra/Dashboard/AIChatWidget";
 import "../styles/globals.css";
 
 const Index = () => {
@@ -39,19 +40,27 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#0f111a] text-[#e0e6ff]">
-      <ScrollProgress />
       <Header />
 
       <main>
         <HeroSection />
+        <div className="container mx-auto px-4 py-20">
+          <SectorWheel />
+        </div>
+        <div className="container mx-auto px-4 py-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            Your <span className="text-[#4fc3f7]">Personalized</span> Dashboard
+          </h2>
+          <DynamicDashboard />
+        </div>
         <FeaturesSection />
         <AboutSection />
         <PricingSection />
         <ContactSection />
+        <AIChatWidget />
       </main>
 
       <Footer />
-      <HelpButton />
     </div>
   );
 };
