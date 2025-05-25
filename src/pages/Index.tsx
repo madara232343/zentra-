@@ -3,6 +3,8 @@ import { Header } from "@/components/zentra/Header";
 import { HeroSection } from "@/components/zentra/HeroSection";
 import { FeaturesSection } from "@/components/zentra/FeaturesSection";
 import { AboutSection } from "@/components/zentra/AboutSection";
+import { PricingSection } from "@/components/zentra/PricingSection";
+import { ContactSection } from "@/components/zentra/ContactSection";
 import { Footer } from "@/components/zentra/Footer";
 import { HelpButton } from "@/components/zentra/HelpButton";
 import { ScrollProgress } from "@/components/zentra/ScrollProgress";
@@ -44,7 +46,8 @@ const Index = () => {
         <HeroSection />
         <FeaturesSection />
         <AboutSection />
-        {/* Additional sections would go here */}
+        <PricingSection />
+        <ContactSection />
       </main>
 
       <Footer />
