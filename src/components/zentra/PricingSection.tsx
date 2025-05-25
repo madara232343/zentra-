@@ -120,7 +120,7 @@ export function PricingSection() {
   const tiers = [
     {
       name: "Zentra Core",
-      price: "$29",
+      price: "$9",
       description: "Essential AI tools for personal use and small projects.",
       features: [
         {
@@ -139,7 +139,7 @@ export function PricingSection() {
     },
     {
       name: "Zentra Plus",
-      price: "$89",
+      price: "$39",
       description: "Advanced AI capabilities for professionals and businesses.",
       features: [
         {
@@ -164,7 +164,7 @@ export function PricingSection() {
     },
     {
       name: "Zentra Elite",
-      price: "$249",
+      price: "$149",
       description:
         "Complete AI ecosystem for enterprises and large-scale applications.",
       features: [
@@ -258,30 +258,6 @@ export function PricingSection() {
             />
           ))}
         </div>
-
-        {/* Enterprise Tier */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="bg-[#161a2b]/40 backdrop-blur-sm border border-[#8a7fff]/20 rounded-xl p-8 mb-20"
-        >
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Zentra Enterprise
-              </h3>
-              <p className="text-[#e0e6ff]/70 max-w-2xl">
-                Need a custom solution for your organization? Contact us for a
-                tailored package that meets your specific requirements with
-                dedicated support and custom development.
-              </p>
-            </div>
-            <Button className="bg-gradient-to-r from-[#4fc3f7] to-[#8a7fff] text-white whitespace-nowrap zentra-button">
-              Contact Sales
-            </Button>
-          </div>
-        </motion.div>
 
         {/* FAQs */}
         <motion.div

@@ -106,7 +106,7 @@ export function HeroSection() {
             <Button
               variant="outline"
               size="lg"
-              className="border-[#8a7fff] text-[#e0e6ff] hover:bg-[#161a2b] hover:text-white rounded-full px-8 py-6 text-lg zentra-button"
+              className="border-[#8a7fff] text-[#e0e6ff] hover:bg-[#161a2b] hover:text-white rounded-full px-8 py-6 text-lg zentra-button bg-[#8585ff]"
               onClick={scrollToFeatures}
             >
               Learn More

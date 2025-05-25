@@ -38,12 +38,6 @@ function ContactInfo() {
       link: "mailto:hello@zentra.ai",
     },
     {
-      icon: <MapPin className="h-6 w-6 text-[#4fc3f7]" />,
-      title: "Office",
-      value: "101 Tech Plaza, Silicon Valley, CA",
-      link: "#",
-    },
-    {
       icon: <Phone className="h-6 w-6 text-[#4fc3f7]" />,
       title: "Phone",
       value: "+1 (555) 123-4567",
