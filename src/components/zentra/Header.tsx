@@ -145,21 +145,22 @@ export function Header() {
                 <div className="border-t border-slate-800 my-2"></div>
                 <Button
                   variant="ghost"
-                  className="w-full justify-start text-[#e0e6ff] hover:text-white hover:bg-[#161a2b]/50"
-                  onClick={() => {
-                    setLoginOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
+                  className="text-[#e0e6ff]/50 hover:text-[#e0e6ff] transition-colors"
+                  onClick={() => setLoginOpen(true)}
                 >
                   Login
                 </Button>
                 <Button
+                  variant="ghost"
+                  className="text-[#e0e6ff]/50 hover:text-[#e0e6ff] transition-colors"
+                  onClick={() => (window.location.href = "/dashboard")}
+                >
+                  Dashboard
+                </Button>
+                <Button
                   variant="default"
-                  className="w-full justify-start bg-gradient-to-r from-[#4fc3f7] to-[#8a7fff] text-white"
-                  onClick={() => {
-                    setSignupOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
+                  className="bg-gradient-to-r from-[#4fc3f7] to-[#8a7fff] hover:opacity-90 transition-opacity text-white zentra-button"
+                  onClick={() => setSignupOpen(true)}
                 >
                   Sign Up
                 </Button>
