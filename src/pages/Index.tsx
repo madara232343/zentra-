@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/zentra/Header";
 import { HeroSection } from "@/components/zentra/HeroSection";
 import { FeaturesSection } from "@/components/zentra/FeaturesSection";
