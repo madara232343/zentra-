@@ -8,6 +8,8 @@ interface Particle {
   color: string;
   opacity: number;
   speed: number;
+  angle: number;
+  angleSpeed: number;
 }
 
 export function ParticlesBackground() {
@@ -15,13 +17,15 @@ export function ParticlesBackground() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const particles = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
+  const mousePosition = useRef({ x: 0, y: 0 });
+  const mouseMoved = useRef(false);
 
   useEffect(() => {
     const handleResize = () => {
       if (canvasRef.current) {
         const canvas = canvasRef.current;
         const width = window.innerWidth;
-        const height = window.innerHeight * 0.8; // 80vh for hero section
+        const height = window.innerHeight * 0.9; // 90vh for hero section
 
         canvas.width = width;
         canvas.height = height;
@@ -33,11 +37,24 @@ export function ParticlesBackground() {
       }
     };
 
+    const handleMouseMove = (event: MouseEvent) => {
+      if (canvasRef.current) {
+        const rect = canvasRef.current.getBoundingClientRect();
+        mousePosition.current = {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        };
+        mouseMoved.current = true;
+      }
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationRef.current);
     };
   }, []);
@@ -47,16 +64,20 @@ export function ParticlesBackground() {
 
     const newParticles: Particle[] = [];
     const { width, height } = canvasRef.current;
-    const particleCount = Math.min(Math.max(width, height) / 8, 100);
+    const particleCount = Math.min(Math.max(width, height) / 10, 120);
+
+    const colors = ["#4fc3f7", "#8a7fff", "#a855f7"];
 
     for (let i = 0; i < particleCount; i++) {
       newParticles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2 + 1,
-        color: Math.random() > 0.5 ? "#4fc3f7" : "#9c27b0",
+        size: Math.random() * 3 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
         opacity: Math.random() * 0.5 + 0.1,
         speed: Math.random() * 0.5 + 0.2,
+        angle: Math.random() * Math.PI * 2,
+        angleSpeed: (Math.random() - 0.5) * 0.01,
       });
     }
 
@@ -76,25 +97,101 @@ export function ParticlesBackground() {
 
       if (!ctx) return;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas with slight opacity to create trail effect
+      ctx.fillStyle = "rgba(15, 17, 26, 0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      particles.current.forEach((particle) => {
+      // Draw and update particles
+      particles.current.forEach((particle, index) => {
+        // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle =
-          particle.color +
-          Math.floor(particle.opacity * 255)
-            .toString(16)
-            .padStart(2, "0");
+        ctx.fillStyle = `${particle.color}${Math.floor(particle.opacity * 255)
+          .toString(16)
+          .padStart(2, "0")}`;
         ctx.fill();
 
-        // Move particles
-        particle.y -= particle.speed;
+        // Draw glow effect
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(
+          particle.x,
+          particle.y,
+          0,
+          particle.x,
+          particle.y,
+          particle.size * 3,
+        );
+        gradient.addColorStop(0, `${particle.color}30`);
+        gradient.addColorStop(1, "transparent");
+        ctx.fillStyle = gradient;
+        ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Connect nearby particles with lines
+        for (let j = index + 1; j < particles.current.length; j++) {
+          const p2 = particles.current[j];
+          const dx = particle.x - p2.x;
+          const dy = particle.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `${particle.color}${Math.floor(
+              (1 - distance / 100) * 30,
+            )
+              .toString(16)
+              .padStart(2, "0")}`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+
+        // Move particles with slight influence from mouse
+        if (mouseMoved.current) {
+          const dx = mousePosition.current.x - particle.x;
+          const dy = mousePosition.current.y - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 200) {
+            const angle = Math.atan2(dy, dx);
+            const force = (1 - distance / 200) * 0.2;
+
+            particle.x += Math.cos(angle) * force;
+            particle.y += Math.sin(angle) * force;
+          }
+        }
+
+        // Update particle position
+        particle.angle += particle.angleSpeed;
+        particle.x += Math.cos(particle.angle) * particle.speed;
+        particle.y +=
+          Math.sin(particle.angle) * particle.speed - particle.speed * 0.5;
 
         // Reset particles that go off screen
-        if (particle.y < -particle.size) {
-          particle.y = canvas.height + particle.size;
-          particle.x = Math.random() * canvas.width;
+        if (
+          particle.x < -particle.size * 5 ||
+          particle.x > canvas.width + particle.size * 5 ||
+          particle.y < -particle.size * 5 ||
+          particle.y > canvas.height + particle.size * 5
+        ) {
+          if (Math.random() > 0.5) {
+            // Respawn from sides
+            particle.x =
+              Math.random() > 0.5
+                ? -particle.size
+                : canvas.width + particle.size;
+            particle.y = Math.random() * canvas.height;
+          } else {
+            // Respawn from top/bottom
+            particle.x = Math.random() * canvas.width;
+            particle.y =
+              Math.random() > 0.5
+                ? -particle.size
+                : canvas.height + particle.size;
+          }
+          particle.angle = Math.random() * Math.PI * 2;
         }
       });
 

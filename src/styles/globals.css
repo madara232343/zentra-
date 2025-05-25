@@ -1,0 +1,470 @@
+/* Global Design System */
+
+/* Custom colors */
+:root {
+  --zentra-dark-navy: #0f111a;
+  --zentra-blue: #4fc3f7;
+  --zentra-purple: #8a7fff;
+  --zentra-text: #e0e6ff;
+  --zentra-text-secondary: rgba(224, 230, 255, 0.7);
+  --zentra-border: rgba(138, 127, 255, 0.2);
+}
+
+/* Typography */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--zentra-text);
+  background-color: var(--zentra-dark-navy);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+/* Animation keyframes */
+@keyframes glow {
+  0% {
+    text-shadow:
+      0 0 10px rgba(79, 195, 247, 0.3),
+      0 0 20px rgba(79, 195, 247, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(79, 195, 247, 0.5),
+      0 0 30px rgba(138, 127, 255, 0.3);
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(79, 195, 247, 0.3),
+      0 0 20px rgba(79, 195, 247, 0.2);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Utility classes */
+.glow-text {
+  animation: glow 3s infinite;
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse-animation {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInFromRight 0.8s ease-out forwards;
+}
+
+.slide-in-left {
+  animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+.slide-in-bottom {
+  animation: slideInFromBottom 0.8s ease-out forwards;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    var(--zentra-blue),
+    var(--zentra-purple)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons */
+.zentra-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.zentra-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(79, 195, 247, 0.3);
+}
+
+.zentra-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(79, 195, 247, 0.1),
+    rgba(138, 127, 255, 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.zentra-button:hover::after {
+  opacity: 1;
+}
+
+/* Navbar styles */
+.navbar {
+  transition:
+    background-color 0.3s ease,
+    height 0.3s ease;
+}
+
+.navbar-scrolled {
+  background-color: rgba(15, 17, 26, 0.9);
+  backdrop-filter: blur(8px);
+  height: 70px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--zentra-blue),
+    var(--zentra-purple)
+  );
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Cards */
+.feature-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  border: 1px solid var(--zentra-border);
+  background-color: rgba(22, 26, 43, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(79, 195, 247, 0.15);
+  border-color: var(--zentra-blue);
+}
+
+/* Progress bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--zentra-blue),
+    var(--zentra-purple)
+  );
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to right,
+    var(--zentra-blue),
+    var(--zentra-purple)
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  z-index: 100;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+}
+
+/* Forms and inputs */
+.form-input {
+  background-color: rgba(22, 26, 43, 0.6);
+  border: 1px solid var(--zentra-border);
+  color: var(--zentra-text);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: var(--zentra-blue);
+  box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+  outline: none;
+}
+
+/* Floating labels */
+.form-group {
+  position: relative;
+}
+
+.floating-label {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  color: var(--zentra-text-secondary);
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+  pointer-events: none;
+}
+
+.form-input:focus + .floating-label,
+.form-input:not(:placeholder-shown) + .floating-label {
+  transform: translateY(-24px) scale(0.85);
+  color: var(--zentra-blue);
+}
+
+/* Menu animation */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--zentra-dark-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 127, 255, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 195, 247, 0.5);
+}
+
+/* Aspect ratio containers */
+.aspect-ratio {
+  position: relative;
+  width: 100%;
+}
+
+.aspect-ratio::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.aspect-ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Loading animation */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(79, 195, 247, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--zentra-blue);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Typed text animation */
+.typed-cursor {
+  opacity: 1;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: rgba(22, 26, 43, 0.6);
+  border: 1px solid var(--zentra-border);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  border-color: var(--zentra-blue);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--zentra-blue);
+  border-color: var(--zentra-blue);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
