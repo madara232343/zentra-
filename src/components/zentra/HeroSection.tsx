@@ -112,22 +112,6 @@ export function HeroSection() {
               Learn More
             </Button>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.8,
-              repeat: Infinity,
-              repeatType: "reverse",
-              repeatDelay: 0.5,
-            }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-[#e0e6ff]/70"
-          >
-            <p className="text-sm mb-2">Scroll for more</p>
-            <ChevronDown className="h-6 w-6 animate-bounce" />
-          </motion.div>
         </div>
       </div>
 
