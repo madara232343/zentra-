@@ -1,42 +1,51 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* Custom animations and styles for Zentra */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes glow {
+  0% {
+    text-shadow:
+      0 0 10px rgba(79, 195, 247, 0.5),
+      0 0 20px rgba(79, 195, 247, 0.3);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    text-shadow:
+      0 0 15px rgba(79, 195, 247, 0.7),
+      0 0 30px rgba(156, 39, 176, 0.5);
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(79, 195, 247, 0.5),
+      0 0 20px rgba(79, 195, 247, 0.3);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.glow-text {
+  animation: glow 3s infinite;
 }
 
-.card {
-  padding: 2em;
+/* Aspect ratio utility for the about section image */
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: calc(9 / 16 * 100%);
 }
 
-.read-the-docs {
-  color: #888;
+.aspect-h-9 {
+  position: relative;
+}
+
+.aspect-w-16 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #4fc3f7, #9c27b0);
 }
